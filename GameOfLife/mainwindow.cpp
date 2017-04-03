@@ -29,6 +29,12 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
     ui->mainGraphicsView->show();
+    connect(ui->stepButton, SIGNAL(pressed()), this, SLOT(onButtonPressed()));
+}
+
+void MainWindow::onButtonPressed()
+{
+    qDebug() << "Button was pressed";
 }
 
 MainWindow::~MainWindow()

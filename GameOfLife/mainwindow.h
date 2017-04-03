@@ -17,7 +17,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+private slots:
+    void onButtonPressed();
 private:
     Ui::MainWindow *ui;
     std::vector<std::vector<Cell*>> cellMatrix_;
