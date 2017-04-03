@@ -22,7 +22,7 @@ bool Cell::getCellState()
     return state_;
 }
 
-bool Cell::setCellState(bool state)
+void Cell::setCellState(bool state)
 {
     state_ = state;
 }
