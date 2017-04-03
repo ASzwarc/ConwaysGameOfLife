@@ -2,10 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <vector>
 
 namespace Ui {
 class MainWindow;
 }
+
+class Cell;
 
 class MainWindow : public QMainWindow
 {
@@ -17,6 +20,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    std::vector<std::vector<Cell*>> cellMatrix_;
 };
 
 #endif // MAINWINDOW_H

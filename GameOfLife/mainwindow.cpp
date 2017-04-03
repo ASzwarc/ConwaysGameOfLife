@@ -19,12 +19,13 @@ MainWindow::MainWindow(QWidget *parent) :
     bool state = false;
     for(int i = 0; i < 10; i++)
     {
+        cellMatrix_.push_back(std::vector<Cell*>(10, nullptr));
         for(int j = 0; j < 10; j++)
         {
             state = static_cast<bool>(uni_dist(engine));
             qDebug() << "Random state is: " << state;
-            Cell* cell = new Cell(i * cellHeight, j * cellWidth, cellHeight, cellWidth, nullptr, state);
-            ui->mainGraphicsView->scene()->addItem(cell);
+            cellMatrix_[i][j] = (new Cell(i * cellHeight, j * cellWidth, cellHeight, cellWidth, nullptr, state));
+            ui->mainGraphicsView->scene()->addItem(cellMatrix_[i][j]);
         }
     }
     ui->mainGraphicsView->show();
