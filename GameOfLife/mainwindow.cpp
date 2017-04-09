@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     int cellHeight = 60;
     int cellWidth = 60;
     ui->mainGraphicsView->setScene(scene);
+    //Change random generation to some predefined starting points like Glider, Exploder, Tumbler etc.
     std::default_random_engine engine((std::random_device())());
     std::uniform_int_distribution<int> uni_dist(0, 2);
     bool state = false;
@@ -29,15 +30,58 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
     ui->mainGraphicsView->show();
-    connect(ui->stepButton, SIGNAL(pressed()), this, SLOT(onButtonPressed()));
+    connect(ui->stepButton, SIGNAL(pressed()), this, SLOT(onStepButtonPressed()));
 }
 
-void MainWindow::onButtonPressed()
+void MainWindow::onStepButtonPressed()
 {
-    qDebug() << "Button was pressed";
+    qDebug() << "Next step";
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+bool MainWindow::isChangingState(int row, int col)
+{
+    int aliveNeighbours = 0;
+    for(int x = row - 1; x <= row + 1; x++)
+    {
+        for(int y = col - 1; y<= col + 1; y++)
+        {
+            if(y > 0 && y < 10 && y != row && x > 0 && x < 10 && x != row)
+            {
+                if((cellMatrix_[x][y])->getCellState())
+                {
+                    aliveNeighbours++;
+                }
+            }
+        }
+    }
+    if((cellMatrix_[row][col])->getCellState())
+    {
+        if(aliveNeighbours < 2 && aliveNeighbours > 3)
+            return true;
+    }
+    else
+    {
+        if(aliveNeighbours == 3)
+            return true;
+    }
+}
+
+void MainWindow::evaluateNextState()
+{
+    for(int i = 0; i < 10; i++)
+    {
+        for(int j = 0; j < 10; j++)
+        {
+            if(isChangingState(i, j))
+            {
+                //add cell to list
+                qDebug() << "Cell[" << i << ", " << j << "] is changing state.";
+            }
+        }
+    }
 }
