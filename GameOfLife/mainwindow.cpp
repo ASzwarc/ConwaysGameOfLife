@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <QDebug>
 #include <random>
+#include <utility>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,6 +37,9 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::onStepButtonPressed()
 {
     qDebug() << "Next step";
+    this->evaluateNextState();
+    //set states
+    cleanUp();
 }
 
 MainWindow::~MainWindow()
@@ -43,7 +47,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-bool MainWindow::isChangingState(int row, int col)
+int MainWindow::countAliveNeighbours(int col, int row)
 {
     int aliveNeighbours = 0;
     for(int x = row - 1; x <= row + 1; x++)
@@ -59,6 +63,13 @@ bool MainWindow::isChangingState(int row, int col)
             }
         }
     }
+
+    return aliveNeighbours;
+}
+
+bool MainWindow::isChangingState(int row, int col)
+{
+    int aliveNeighbours = countAliveNeighbours(col, row);
     if((cellMatrix_[row][col])->getCellState())
     {
         if(aliveNeighbours < 2 && aliveNeighbours > 3)
@@ -69,6 +80,7 @@ bool MainWindow::isChangingState(int row, int col)
         if(aliveNeighbours == 3)
             return true;
     }
+    return false;
 }
 
 void MainWindow::evaluateNextState()
@@ -79,9 +91,14 @@ void MainWindow::evaluateNextState()
         {
             if(isChangingState(i, j))
             {
-                //add cell to list
+                cellsToChange_.emplace_back(std::make_pair(i, j));
                 qDebug() << "Cell[" << i << ", " << j << "] is changing state.";
             }
         }
     }
+}
+
+void MainWindow::cleanUp()
+{
+    cellsToChange_.clear();
 }

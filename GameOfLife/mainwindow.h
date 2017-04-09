@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <vector>
 #include <list>
-#include <pair>
+
 
 namespace Ui {
 class MainWindow;
@@ -24,9 +24,13 @@ private slots:
 private:
     void evaluateNextState();
     bool isChangingState(int row, int col);
+    void cleanUp();
+    int countAliveNeighbours(int col, int row);
+
     Ui::MainWindow *ui;
     std::vector<std::vector<Cell*>> cellMatrix_;
     std::list<std::pair<int, int>> cellsToChange_;
+
 };
 
 #endif // MAINWINDOW_H
