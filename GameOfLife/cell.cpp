@@ -8,8 +8,6 @@ Cell::Cell(int posX, int posY, int height,
     QGraphicsRectItem(posX, posY, height, width),
     state_(defaultState)
 {
-    if (state_)
-        this->setBrush(QBrush(QColor(0, 0, 255)));
 }
 
 Cell::~Cell()
@@ -25,4 +23,12 @@ bool Cell::getCellState()
 void Cell::setCellState(bool state)
 {
     state_ = state;
+}
+
+void Cell::updateCellView()
+{
+    if (state_)
+        this->setBrush(QBrush(QColor(0, 0, 255)));
+    else
+        this->setBrush(QBrush(QColor(255, 255, 255)));
 }

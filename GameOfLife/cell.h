@@ -12,6 +12,7 @@ public:
     ~Cell();
     bool getCellState();
     void setCellState(bool state);
+    void updateCellView();
 private:
     bool state_;
 };

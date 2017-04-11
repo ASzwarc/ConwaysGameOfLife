@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
         for(int j = 0; j < 10; j++)
         {
             cellMatrix_[i][j] = (new Cell(i * cellHeight, j * cellWidth, cellHeight, cellWidth, nullptr, false));
+            (cellMatrix_[i][j])->updateCellView();
             ui->mainGraphicsView->scene()->addItem(cellMatrix_[i][j]);
         }
     }
@@ -55,7 +56,9 @@ bool MainWindow::setDesiredStartingCellState(Configuration::Type type)
     }
     for(const auto& elem: configuration->activeCells_)
     {
+        qDebug() << "Setting element: [ " << elem.first << ", " << elem.second << "]";
         (cellMatrix_[elem.first][elem.second])->setCellState(true);
+        (cellMatrix_[elem.first][elem.second])->updateCellView();
     }
     return true;
 }
