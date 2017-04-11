@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <random>
 #include <utility>
+#include <memory>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,20 +16,18 @@ MainWindow::MainWindow(QWidget *parent) :
     int cellHeight = 60;
     int cellWidth = 60;
     ui->mainGraphicsView->setScene(scene);
-    //Change random generation to some predefined starting points like Glider, Exploder, Tumbler etc.
-    std::default_random_engine engine((std::random_device())());
-    std::uniform_int_distribution<int> uni_dist(0, 2);
-    bool state = false;
     for(int i = 0; i < 10; i++)
     {
         cellMatrix_.push_back(std::vector<Cell*>(10, nullptr));
         for(int j = 0; j < 10; j++)
         {
-            state = static_cast<bool>(uni_dist(engine));
-            qDebug() << "Random state is: " << state;
-            cellMatrix_[i][j] = (new Cell(i * cellHeight, j * cellWidth, cellHeight, cellWidth, nullptr, state));
+            cellMatrix_[i][j] = (new Cell(i * cellHeight, j * cellWidth, cellHeight, cellWidth, nullptr, false));
             ui->mainGraphicsView->scene()->addItem(cellMatrix_[i][j]);
         }
+    }
+    if(setDesiredStartingCellState(Configuration::Type::Glider))
+    {
+        qDebug() << "Desired state was set";
     }
     ui->mainGraphicsView->show();
     connect(ui->stepButton, SIGNAL(pressed()), this, SLOT(onStepButtonPressed()));
@@ -40,6 +39,25 @@ void MainWindow::onStepButtonPressed()
     this->evaluateNextState();
     //set states
     cleanUp();
+}
+
+bool MainWindow::setDesiredStartingCellState(Configuration::Type type)
+{
+    std::shared_ptr<Configuration> configuration;
+    switch(type)
+    {
+        case Configuration::Type::Glider:
+            configuration = std::make_shared<GliderConfiguration>();
+            break;
+        default:
+            qDebug() << "Configuration is not supported!";
+            return false;
+    }
+    for(const auto& elem: configuration->activeCells_)
+    {
+        (cellMatrix_[elem.first][elem.second])->setCellState(true);
+    }
+    return true;
 }
 
 MainWindow::~MainWindow()

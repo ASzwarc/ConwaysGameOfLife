@@ -1,15 +1,17 @@
 #include "predefinedconfigurations.h"
 #include <QDebug>
 
-PredefinedConfigurations::PredefinedConfigurations()
+Configuration::Configuration()
 {
 
 }
 
-GliderConfiguration::GliderConfiguration():
-    PredefinedConfiguration(),
-    activeCells_{{3, 3}, {3, 4}, {3, 5},
-                 {4, 3}, {5, 4}}
+GliderConfiguration::GliderConfiguration()
 {
+    activeCells_.push_back({3, 3});
+    activeCells_.push_back({3, 4});
+    activeCells_.push_back({3, 5});
+    activeCells_.push_back({4, 3});
+    activeCells_.push_back({5, 4});
     qDebug() << "Glider was created!";
 }

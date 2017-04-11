@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <vector>
 #include <list>
+#include "predefinedconfigurations.h"
 
 
 namespace Ui {
@@ -22,6 +23,7 @@ public:
 private slots:
     void onStepButtonPressed();
 private:
+    bool setDesiredStartingCellState(Configuration::Type type);
     void evaluateNextState();
     bool isChangingState(int row, int col);
     void cleanUp();

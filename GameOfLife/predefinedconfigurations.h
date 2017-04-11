@@ -3,13 +3,20 @@
 #include <vector>
 #include <utility>
 
-struct PredefinedConfiguration
+struct Configuration
 {
-    PredefinedConfiguration();
+    enum class Type
+    {
+        Glider,
+        Exploder,
+        Tumbler
+    };
+
+    Configuration();
     std::vector<std::pair<int, int>> activeCells_;
 };
 
-struct GliderConfiguration: public PredefinedConfiguration
+struct GliderConfiguration: public Configuration
 {
     GliderConfiguration();
 };
