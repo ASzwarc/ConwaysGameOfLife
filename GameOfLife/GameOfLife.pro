@@ -25,9 +25,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    cell.cpp
+    cell.cpp \
+    predefinedconfigurations.cpp
 
 HEADERS  += mainwindow.h \
-    cell.h
+    cell.h \
+    predefinedconfigurations.h
 
 FORMS    += mainwindow.ui
