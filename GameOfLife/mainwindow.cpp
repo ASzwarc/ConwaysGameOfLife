@@ -97,7 +97,7 @@ bool MainWindow::isChangingState(int col, int row)
     int aliveNeighbours = countAliveNeighbours(col, row);
     if((cellMatrix_[col][row])->getCellState())
     {
-        if(aliveNeighbours < 2 && aliveNeighbours > 3)
+        if(aliveNeighbours < 2 || aliveNeighbours > 3)
             return true;
     }
     else
