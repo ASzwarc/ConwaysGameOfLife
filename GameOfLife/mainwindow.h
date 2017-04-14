@@ -25,6 +25,7 @@ private slots:
 private:
     bool setDesiredStartingCellState(Configuration::Type type);
     void evaluateNextState();
+    void setCellsToNextState();
     bool isChangingState(int row, int col);
     void cleanUp();
     int countAliveNeighbours(int col, int row);

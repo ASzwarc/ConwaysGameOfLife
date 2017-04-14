@@ -38,7 +38,7 @@ void MainWindow::onStepButtonPressed()
 {
     qDebug() << "Next step";
     this->evaluateNextState();
-    //set states
+    this->setCellsToNextState();
     cleanUp();
 }
 
@@ -120,6 +120,17 @@ void MainWindow::evaluateNextState()
                 qDebug() << "Cell[" << i << ", " << j << "] is changing state.";
             }
         }
+    }
+}
+
+void MainWindow::setCellsToNextState()
+{
+    for(const auto& elem: cellsToChange_)
+    {
+        (cellMatrix_[elem.first][elem.second])->getCellState() ?
+                    (cellMatrix_[elem.first][elem.second])->setCellState(false) :
+                    (cellMatrix_[elem.first][elem.second])->setCellState(true);
+        (cellMatrix_[elem.first][elem.second])->updateCellView();
     }
 }
 
