@@ -56,7 +56,6 @@ bool MainWindow::setDesiredStartingCellState(Configuration::Type type)
     }
     for(const auto& elem: configuration->activeCells_)
     {
-        qDebug() << "Setting element: [ " << elem.first << ", " << elem.second << "]";
         (cellMatrix_[elem.first][elem.second])->setCellState(true);
         (cellMatrix_[elem.first][elem.second])->updateCellView();
     }
@@ -75,7 +74,7 @@ int MainWindow::countAliveNeighbours(int col, int row)
     {
         for(int y = row - 1; y<= row + 1; y++)
         {
-            if(y > 0 && y < 10 && y != row && x > 0 && x < 10 && x != col)
+            if(y > 0 && y < 10 && x > 0 && x < 10 && (x != col || y != row))
             {
                 if((cellMatrix_[x][y])->getCellState())
                 {
@@ -84,8 +83,6 @@ int MainWindow::countAliveNeighbours(int col, int row)
             }
         }
     }
-    qDebug() << "[" << col << ", " << row << "] -> " << aliveNeighbours;
-
     return aliveNeighbours;
 }
 
