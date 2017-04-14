@@ -3,9 +3,9 @@
 #include <QBrush>
 #include <QColor>
 
-Cell::Cell(int posX, int posY, int height,
-           int width, QObject* parent, bool defaultState):
-    QGraphicsRectItem(posX, posY, height, width),
+Cell::Cell(int posX, int posY, int width,
+           int height, QObject* parent, bool defaultState):
+    QGraphicsRectItem(posX, posY, width, height),
     state_(defaultState)
 {
 }

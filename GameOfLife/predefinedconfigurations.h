@@ -18,6 +18,11 @@ struct Configuration
 
 struct GliderConfiguration: public Configuration
 {
+    /*
+     * xxx
+     * xoo
+     * oxo
+     */
     GliderConfiguration();
 };
 /* This will be done later when needed

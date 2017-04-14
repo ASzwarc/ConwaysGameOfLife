@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
         cellMatrix_.push_back(std::vector<Cell*>(10, nullptr));
         for(int j = 0; j < 10; j++)
         {
-            cellMatrix_[i][j] = (new Cell(i * cellHeight, j * cellWidth, cellHeight, cellWidth, nullptr, false));
+            cellMatrix_[i][j] = (new Cell(i * cellWidth, j * cellHeight, cellWidth, cellHeight, nullptr, false));
             (cellMatrix_[i][j])->updateCellView();
             ui->mainGraphicsView->scene()->addItem(cellMatrix_[i][j]);
         }
@@ -71,11 +71,11 @@ MainWindow::~MainWindow()
 int MainWindow::countAliveNeighbours(int col, int row)
 {
     int aliveNeighbours = 0;
-    for(int x = row - 1; x <= row + 1; x++)
+    for(int x = col - 1; x <= col + 1; x++)
     {
-        for(int y = col - 1; y<= col + 1; y++)
+        for(int y = row - 1; y<= row + 1; y++)
         {
-            if(y > 0 && y < 10 && y != row && x > 0 && x < 10 && x != row)
+            if(y > 0 && y < 10 && y != row && x > 0 && x < 10 && x != col)
             {
                 if((cellMatrix_[x][y])->getCellState())
                 {
@@ -84,14 +84,21 @@ int MainWindow::countAliveNeighbours(int col, int row)
             }
         }
     }
+    qDebug() << "[" << col << ", " << row << "] -> " << aliveNeighbours;
 
     return aliveNeighbours;
 }
 
-bool MainWindow::isChangingState(int row, int col)
+bool MainWindow::isChangingState(int col, int row)
 {
+    /*
+     * Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+     * Any live cell with two or three live neighbours lives on to the next generation.
+     * Any live cell with more than three live neighbours dies, as if by overpopulation.
+     * Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+     */
     int aliveNeighbours = countAliveNeighbours(col, row);
-    if((cellMatrix_[row][col])->getCellState())
+    if((cellMatrix_[col][row])->getCellState())
     {
         if(aliveNeighbours < 2 && aliveNeighbours > 3)
             return true;

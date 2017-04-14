@@ -8,7 +8,7 @@ class Cell: public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 public:
-    Cell(int posX, int posY, int height, int width, QObject* parent = nullptr, bool defaultState = false);
+    Cell(int posX, int posY, int width, int height, QObject* parent = nullptr, bool defaultState = false);
     ~Cell();
     bool getCellState();
     void setCellState(bool state);
