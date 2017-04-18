@@ -28,15 +28,31 @@ struct GliderConfiguration: public Configuration
     GliderConfiguration();
     std::string getName() override;
 };
-/* This will be done later when needed
-struct ExploderConfiguration: public PredefinedConfiguration
+
+struct ExploderConfiguration: public Configuration
 {
+    /*
+     * oxo
+     * xxx
+     * xox
+     * oxo
+     */
     ExploderConfiguration();
+    std::string getName() override;
 };
 
-struct TumblerConfiguration: public PredefinedConfiguration
+struct TumblerConfiguration: public Configuration
 {
+    /*
+     * oxxoxxo
+     * oxxoxxo
+     * ooxoxoo
+     * xoxoxox
+     * xoxoxox
+     * xxoooxx
+     */
     TumblerConfiguration();
+    std::string getName() override;
 };
-*/
+
 #endif // PREDEFINEDCONFIGURATIONS_H

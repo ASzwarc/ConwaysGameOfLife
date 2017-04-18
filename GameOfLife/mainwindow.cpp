@@ -93,6 +93,8 @@ int MainWindow::countAliveNeighbours(int col, int row)
 void MainWindow::populateAvailableConfigurations()
 {
     availableConfigurations_.push_back(std::make_shared<GliderConfiguration>());
+    availableConfigurations_.push_back(std::make_shared<TumblerConfiguration>());
+    availableConfigurations_.push_back(std::make_shared<ExploderConfiguration>());
 }
 
 bool MainWindow::isChangingState(int col, int row)
