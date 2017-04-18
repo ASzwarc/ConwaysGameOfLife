@@ -23,6 +23,7 @@ public:
     ~MainWindow();
 private slots:
     void onStepButtonPressed();
+    void onConfigurationComboBoxActivated(const QString& text);
 private:
     bool setDesiredStartingCellState(Configuration::Type type);
     void evaluateNextState();
@@ -35,6 +36,7 @@ private:
     Ui::MainWindow *ui;
     std::vector<std::vector<Cell*>> cellMatrix_;
     std::list<std::pair<int, int>> cellsToChange_;
+    //TODO: Change it to map, it will be easier and more logical...
     std::list<std::shared_ptr<Configuration>> availableConfigurations_;
 
 };

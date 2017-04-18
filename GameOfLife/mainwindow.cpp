@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         ui->configurationComboBox->addItem(QString((elem->getName()).c_str()));
     }
+    connect(ui->configurationComboBox, SIGNAL(activated(QString)), this, SLOT(onConfigurationComboBoxActivated(QString)));
     connect(ui->stepButton, SIGNAL(pressed()), this, SLOT(onStepButtonPressed()));
 }
 
@@ -46,6 +47,11 @@ void MainWindow::onStepButtonPressed()
     cleanUp();
 }
 
+void MainWindow::onConfigurationComboBoxActivated(const QString &text)
+{
+    qDebug() << "ComboBox activated with " << text;
+}
+
 bool MainWindow::setDesiredStartingCellState(Configuration::Type type)
 {
     std::shared_ptr<Configuration> configuration;
@@ -53,6 +59,12 @@ bool MainWindow::setDesiredStartingCellState(Configuration::Type type)
     {
         case Configuration::Type::Glider:
             configuration = std::make_shared<GliderConfiguration>();
+            break;
+        case Configuration::Type::Exploder:
+            configuration = std::make_shared<ExploderConfiguration>();
+            break;
+        case Configuration::Type::Tumbler:
+            configuration = std::make_shared<TumblerConfiguration>();
             break;
         default:
             qDebug() << "Configuration is not supported!";
