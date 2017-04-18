@@ -2,6 +2,7 @@
 #define PREDEFINEDCONFIGURATIONS_H
 #include <vector>
 #include <utility>
+#include <string>
 
 struct Configuration
 {
@@ -13,6 +14,7 @@ struct Configuration
     };
 
     Configuration();
+    virtual std::string getName();
     std::vector<std::pair<int, int>> activeCells_;
 };
 
@@ -24,6 +26,7 @@ struct GliderConfiguration: public Configuration
      * oxo
      */
     GliderConfiguration();
+    std::string getName() override;
 };
 /* This will be done later when needed
 struct ExploderConfiguration: public PredefinedConfiguration

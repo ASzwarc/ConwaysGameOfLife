@@ -3,7 +3,11 @@
 
 Configuration::Configuration()
 {
+}
 
+std::string Configuration::getName()
+{
+    return "Default";
 }
 
 GliderConfiguration::GliderConfiguration()
@@ -15,3 +19,10 @@ GliderConfiguration::GliderConfiguration()
     activeCells_.push_back({4, 6});
     qDebug() << "Glider was created!";
 }
+
+std::string GliderConfiguration::getName()
+{
+    return "Glider";
+}
+
+
