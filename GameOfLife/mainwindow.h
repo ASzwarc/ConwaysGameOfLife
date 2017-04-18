@@ -32,6 +32,7 @@ private:
     void cleanUp();
     int countAliveNeighbours(int col, int row);
     void populateAvailableConfigurations();
+    void clearView();
 
     Ui::MainWindow *ui;
     std::vector<std::vector<Cell*>> cellMatrix_;

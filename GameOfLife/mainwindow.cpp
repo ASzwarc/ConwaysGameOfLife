@@ -50,6 +50,20 @@ void MainWindow::onStepButtonPressed()
 void MainWindow::onConfigurationComboBoxActivated(const QString &text)
 {
     qDebug() << "ComboBox activated with " << text;
+    clearView();
+
+    if (text == "Glider")
+    {
+        setDesiredStartingCellState(Configuration::Type::Glider);
+    }
+    else if (text == "Tumbler")
+    {
+        setDesiredStartingCellState(Configuration::Type::Tumbler);
+    }
+    else if (text == "Exploder")
+    {
+        setDesiredStartingCellState(Configuration::Type::Exploder);
+    }
 }
 
 bool MainWindow::setDesiredStartingCellState(Configuration::Type type)
@@ -107,6 +121,18 @@ void MainWindow::populateAvailableConfigurations()
     availableConfigurations_.push_back(std::make_shared<GliderConfiguration>());
     availableConfigurations_.push_back(std::make_shared<TumblerConfiguration>());
     availableConfigurations_.push_back(std::make_shared<ExploderConfiguration>());
+}
+
+void MainWindow::clearView()
+{
+    for(int i = 0; i < 10; i++)
+    {
+        for(int j = 0; j < 10; j++)
+        {
+            (cellMatrix_[i][j])->setCellState(false);
+            (cellMatrix_[i][j])->updateCellView();
+        }
+    }
 }
 
 bool MainWindow::isChangingState(int col, int row)
