@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <vector>
 #include <list>
+#include <memory>
 #include "predefinedconfigurations.h"
 
 
@@ -29,10 +30,12 @@ private:
     bool isChangingState(int row, int col);
     void cleanUp();
     int countAliveNeighbours(int col, int row);
+    void populateAvailableConfigurations();
 
     Ui::MainWindow *ui;
     std::vector<std::vector<Cell*>> cellMatrix_;
     std::list<std::pair<int, int>> cellsToChange_;
+    std::list<std::shared_ptr<Configuration>> availableConfigurations_;
 
 };
 

@@ -5,12 +5,12 @@
 #include <QDebug>
 #include <random>
 #include <utility>
-#include <memory>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    populateAvailableConfigurations();
     ui->setupUi(this);
     QGraphicsScene* scene = new QGraphicsScene(0, 0, 600, 600, ui->mainGraphicsView);
     int cellHeight = 60;
@@ -31,6 +31,10 @@ MainWindow::MainWindow(QWidget *parent) :
         qDebug() << "Desired state was set";
     }
     ui->mainGraphicsView->show();
+    for(const auto& elem: availableConfigurations_)
+    {
+        ui->configurationComboBox->addItem(QString((elem->getName()).c_str()));
+    }
     connect(ui->stepButton, SIGNAL(pressed()), this, SLOT(onStepButtonPressed()));
 }
 
@@ -84,6 +88,11 @@ int MainWindow::countAliveNeighbours(int col, int row)
         }
     }
     return aliveNeighbours;
+}
+
+void MainWindow::populateAvailableConfigurations()
+{
+    availableConfigurations_.push_back(std::make_shared<GliderConfiguration>());
 }
 
 bool MainWindow::isChangingState(int col, int row)
